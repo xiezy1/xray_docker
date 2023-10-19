@@ -1,5 +1,5 @@
 const execs = require("child_process").exec;
-
+const fs = require("fs");
 function stopXray() {
     execs("ps -a", (err, so, se) => {
         let result = so.split("\n").find((item) => item.includes("xray"));
