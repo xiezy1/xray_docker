@@ -22,7 +22,6 @@ router.get("/", async function (req, res, next) {
             if (protocol == "trojan") return;
             let nodeInfo = new Xray_config(protocol, node).formate();
             let { nodename, config, uuid } = nodeInfo;
-            console.log(/过期|时间|流量|套餐|到期|剩余/g.test(nodename), nodename);
             if (/过期|时间|流量|套餐|到期|剩余/g.test(nodename.trim())) return;
             nodesnamelist.push({
                 name: nodename,
@@ -33,9 +32,7 @@ router.get("/", async function (req, res, next) {
                 uuid,
                 config,
             });
-            console.log(3333);
         });
-        console.log(11111);
         allConfiglist[name] = configlist;
         allNodesNamelist[name] = nodesnamelist;
     }

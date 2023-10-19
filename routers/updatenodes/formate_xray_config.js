@@ -350,7 +350,7 @@ module.exports = class Xray_config {
         let [address, port] = temp[0].split(":");
         temp = temp[1].split("&");
 
-        let [type, encryption, security, flow, sni, pbk, sid, headerType, fp] = temp[0].split("&").map((item) => {
+        let [type, encryption, security, flow, sni, pbk, sid, headerType, fp] = temp.map((item) => {
             return item.split("=")[1];
         });
         return {
@@ -377,7 +377,6 @@ module.exports = class Xray_config {
             return this.editConfig(this.getVlessBaseConfig(), this.splitVless());
         }
     }
-
     editConfig(config, dataObject) {
         let nodename;
         let uuid = uuidv4();
@@ -428,6 +427,7 @@ module.exports = class Xray_config {
                 }
             }
         }
+        // console.log(config["outbounds"][0]["settings"]["vnext"][0]["users"]);
         return {
             nodename,
             config,
