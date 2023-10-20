@@ -15,9 +15,9 @@ router.get("/", async function (req, res, next) {
     let allConfiglist = {};
     let allNodesNamelist = {};
     let subscriptList = getsubscriptList();
-    for (let { name, url, isUpdate } of subscriptList) {
-        if (!isUpdate) return;
-        let nodes = await getnodes(url);
+    for (let { subscribename, subscribeurl, isupdate } of subscriptList) {
+        if (!isupdate) return;
+        let nodes = await getnodes(subscribeurl);
         let configlist = [];
         let nodesnamelist = [];
         nodes.forEach((item) => {
@@ -35,8 +35,8 @@ router.get("/", async function (req, res, next) {
                 config,
             });
         });
-        allConfiglist[name] = configlist;
-        allNodesNamelist[name] = nodesnamelist;
+        allConfiglist[subscribename] = configlist;
+        allNodesNamelist[subscribename] = nodesnamelist;
     }
     fs.writeFileSync(path.join(process.cwd(), "routers", "getnodes", "configList.json"), JSON.stringify(allConfiglist), "utf-8");
     fs.writeFileSync(path.join(process.cwd(), "routers", "getnodes", "nodesNameList.json"), JSON.stringify(allNodesNamelist), "utf-8");
