@@ -5,9 +5,9 @@ const path = require("path");
 function stopXray() {
     execs("ps -a", (err, so, se) => {
         let result = so.split("\n").find((item) => item.includes("xray"));
-        console.log(result);
         if (!result) return;
-        let pid = result.split(" ")[1];
+        let strArr = result.split(" ");
+        let pid = strArr[strArr.findIndex((item) => item.includes("pts"))];
         console.log(pid);
         execs(`kill -9 ${pid}`, (err, so, se) => {});
     });

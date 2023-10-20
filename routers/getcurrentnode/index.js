@@ -5,7 +5,7 @@ const path = require("path");
 const { startXray } = require("../../utils");
 
 router.get("/", function (req, res, next) {
-    let info = fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8");
+    let info = JSON.stringify(fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8"));
     if (info.uuid) {
         res.send({
             status: 200,
