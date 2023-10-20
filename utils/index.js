@@ -1,5 +1,7 @@
 const execs = require("child_process").exec;
 const fs = require("fs");
+const path = require("path");
+
 function stopXray() {
     execs("ps -a", (err, so, se) => {
         let result = so.split("\n").find((item) => item.includes("xray"));
@@ -23,8 +25,17 @@ function startXray(config) {
     execs("/usr/local/Xray/xray", (err, so, se) => {});
 }
 
+function getsubscriptList() {
+    try {
+        return JSON.parse(fs.readFileSync(path.join(process.cwd(), "routers", "subscribe", "subscribes.json"), "utf-8"));
+    } catch (error) {
+        return [];
+    }
+}
+
 module.exports = {
     stopXray,
     statusXray,
     startXray,
+    getsubscriptList,
 };

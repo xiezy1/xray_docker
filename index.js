@@ -7,6 +7,8 @@ var loginRouter = require("./routers/login");
 var updatenodesRouter = require("./routers/updatenodes");
 var execconfigRouter = require("./routers/execconfig");
 var getcurrentnodeRouter = require("./routers/getcurrentnode");
+var subscribeRouter = require("./routers/subscribe");
+
 app.all("*", function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
@@ -21,6 +23,7 @@ app.use("/login", loginRouter);
 app.use("/updatenodes", updatenodesRouter);
 app.use("/execconfig", execconfigRouter);
 app.use("/getcurrentnode", getcurrentnodeRouter);
+app.use("/subscribe", subscribeRouter);
 
 app.use(function (req, res, next) {
     res.send("404");

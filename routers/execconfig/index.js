@@ -12,11 +12,7 @@ router.post("/exec", function (req, res, next) {
         result = result.concat(list[item]);
     }
     try {
-        let {
-            config,
-            nodename,
-            uuid: cuuid,
-        } = result.find((item) => {
+        let { config, nodename } = result.find((item) => {
             return uuid == item.uuid;
         });
         execConfig(config);
@@ -24,7 +20,7 @@ router.post("/exec", function (req, res, next) {
             status: 200,
             message: "执行成功等待生效",
         });
-        fs.writeFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), JSON.stringify({ nodename, cuuid }), "utf-8");
+        fs.writeFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), JSON.stringify({ nodename, uuid }), "utf-8");
     } catch (error) {
         console.log(error);
         res.send({

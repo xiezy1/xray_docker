@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const fs = require("fs");
 const path = require("path");
+const { startXray } = require("../../utils");
 
 router.get("/", function (req, res, next) {
     let info = fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8");
@@ -20,4 +21,11 @@ router.get("/", function (req, res, next) {
     }
 });
 
+function start() {
+    let info = fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8");
+    if (info.uuid) {
+        startXray();
+    }
+}
+start();
 module.exports = router;
