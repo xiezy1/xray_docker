@@ -7,8 +7,7 @@ function stopXray() {
         let result = so.split("\n").find((item) => item.includes("xray"));
         if (!result) return;
         let strArr = result.split(" ");
-        let pid = strArr[strArr.findIndex((item) => item.includes("pts"))];
-        console.log(pid);
+        let pid = strArr[strArr.findIndex((item) => item.includes("pts")) - 1];
         execs(`kill -9 ${pid}`, (err, so, se) => {});
     });
 }
