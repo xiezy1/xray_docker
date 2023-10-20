@@ -22,7 +22,8 @@ function statusXray(cb) {
 
 function startXray(config) {
     stopXray();
-    fs.writeFileSync("/usr/local/Xray/config.json", JSON.stringify(config), "utf-8");
+    if (config) fs.writeFileSync("/usr/local/Xray/config.json", JSON.stringify(config), "utf-8");
+    else console.log("使用默认config：/usr/local/Xray/config.json");
     execs("/usr/local/Xray/xray", (err, so, se) => {});
 }
 

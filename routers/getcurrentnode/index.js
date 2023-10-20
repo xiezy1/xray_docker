@@ -5,13 +5,12 @@ const path = require("path");
 const { startXray } = require("../../utils");
 
 router.get("/", function (req, res, next) {
-    let info = JSON.stringify(fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8"));
+    let info = JSON.parse(fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8"));
     if (info.uuid) {
         res.send({
             status: 200,
             message: "获取成功",
             currentName: info.nodename,
-            nodeuuid: uuid,
         });
     } else {
         res.send({
@@ -22,7 +21,7 @@ router.get("/", function (req, res, next) {
 });
 
 function start() {
-    let info = fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8");
+    let info = JSON.parse(fs.readFileSync(path.join(process.cwd(), "routers", "getcurrentnode", "currentnode.json"), "utf-8"));
     if (info.uuid) {
         startXray();
     }

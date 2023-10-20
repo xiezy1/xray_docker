@@ -26,11 +26,11 @@ router.get("/", async function (req, res, next) {
             let { nodename, config, uuid } = nodeInfo;
             if (/过期|时间|流量|套餐|到期|剩余/g.test(nodename.trim())) return;
             nodesnamelist.push({
-                name: nodename,
+                nodename,
                 uuid,
             });
             configlist.push({
-                name: nodename,
+                nodename,
                 uuid,
                 config,
             });
