@@ -14,11 +14,7 @@ function stopXray() {
 
 function statusXray(cb) {
     execs("ps -a", (err, so, se) => {
-        console.log("err", err);
-        console.log("so", so);
-        console.log("se", se);
         let result = so.split("\n").find((item) => item.includes("xray"));
-        console.log("result", result);
         if (result) cb(true);
         else cb(false);
     });
