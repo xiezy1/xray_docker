@@ -1,4 +1,4 @@
-const execs = require("child_process").exec;
+const { execs, spawn } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
@@ -14,7 +14,11 @@ function stopXray() {
 
 function statusXray(cb) {
     execs("ps -a", (err, so, se) => {
+        console.log("err", err);
+        console.log("so", so);
+        console.log("se", se);
         let result = so.split("\n").find((item) => item.includes("xray"));
+        console.log("result", result);
         if (result) cb(true);
         else cb(false);
     });
@@ -24,7 +28,7 @@ function startXray(config) {
     stopXray();
     if (config) fs.writeFileSync("/usr/local/Xray/config.json", JSON.stringify(config), "utf-8");
     else console.log("使用默认config：/usr/local/Xray/config.json");
-    const spawn = require("child_process").spawn;
+
     const ls = spawn("/usr/local/Xray/xray");
 
     ls.stdout.on("data", (data) => {
