@@ -29,6 +29,7 @@ function startXray(config) {
     //     console.log("so", so);
     //     console.log("se", se);
     // });
+    const spawn = require("child_process").spawn;
     const ls = spawn("/usr/local/Xray/xray");
 
     ls.stdout.on("data", (data) => {
