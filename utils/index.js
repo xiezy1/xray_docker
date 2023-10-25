@@ -28,11 +28,11 @@ function startXray(config) {
     const ls = spawn("/usr/local/Xray/xray");
 
     ls.stdout.on("data", (data) => {
-        console.log(`stdout: ${data}`);
+        console.log(`${data}`);
     });
 
     ls.stderr.on("data", (data) => {
-        console.error(`stderr: ${data}`);
+        console.error(`${data}`);
     });
 
     ls.on("close", (code) => {
