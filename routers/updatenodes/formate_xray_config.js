@@ -577,9 +577,9 @@ module.exports = class Xray_config {
                 } else if (key == "port") {
                     config["outbounds"][0]["settings"]["vnext"][0]["port"] = Number(dataObject[key]);
                 } else if (key == "aid") {
-                    config["outbounds"][0]["settings"]["vnext"][0]["alterId"] = Number(dataObject[key]);
+                    config["outbounds"][0]["settings"]["vnext"][0]["users"][0]["alterId"] = Number(dataObject[key]);
                 } else if (key == "id") {
-                    config["outbounds"][0]["settings"]["vnext"][0]["id"] = dataObject[key];
+                    config["outbounds"][0]["settings"]["vnext"][0]["users"][0]["id"] = dataObject[key];
                 }
             }
         } else if (this.protocol == "vless") {
