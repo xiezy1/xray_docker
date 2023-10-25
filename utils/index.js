@@ -24,11 +24,6 @@ function startXray(config) {
     stopXray();
     if (config) fs.writeFileSync("/usr/local/Xray/config.json", JSON.stringify(config), "utf-8");
     else console.log("使用默认config：/usr/local/Xray/config.json");
-    // execs("/usr/local/Xray/xray", (err, so, se) => {
-    //     console.log("err", err);
-    //     console.log("so", so);
-    //     console.log("se", se);
-    // });
     const spawn = require("child_process").spawn;
     const ls = spawn("/usr/local/Xray/xray");
 
