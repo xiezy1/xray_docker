@@ -540,7 +540,7 @@ module.exports = class Xray_config {
         let [address, port] = temp[0].split(":");
         temp = temp[1].split("&");
 
-        let restArr = temp.map((item) => {
+        let [allowInsecure, peer, sni, type, host, path] = temp.map((item) => {
             return item.split("=")[1];
         });
         return {
@@ -548,7 +548,12 @@ module.exports = class Xray_config {
             address,
             port,
             nodename,
-            ...restArr,
+            allowInsecure,
+            peer,
+            sni,
+            type,
+            host,
+            path,
         };
     }
 
@@ -563,13 +568,10 @@ module.exports = class Xray_config {
     }
 
     editConfig(config, dataObject) {
-        let nodename;
         let uuid = uuidv4();
         if (this.protocol == "vmess") {
             for (let key in dataObject) {
-                if (key == "ps") {
-                    nodename = dataObject[key];
-                } else if (key == "net") {
+                if (key == "net") {
                     config["outbounds"][0]["streamSettings"]["network"] = dataObject[key];
                 } else if (key == "tls") {
                     config["outbounds"][0]["streamSettings"]["security"] = dataObject[key];
@@ -610,6 +612,7 @@ module.exports = class Xray_config {
                 }
             }
         } else if (this.protocol == "trojan") {
+            console.log(dataObject);
             if (dataObject["type"] == "ws") {
                 config["outbounds"][0]["streamSettings"]["wsSettings"] = {
                     path: dataObject["path"],
@@ -617,22 +620,23 @@ module.exports = class Xray_config {
                         Host: dataObject["host"],
                     },
                 };
-            } else if (dataObject["type"] == "tcp") {
-                for (let key in dataObject) {
-                    if (key == "peer") {
-                        config["outbounds"][0]["streamSettings"]["tlsSettings"]["serverName"] = dataObject[key];
-                    } else if (key == "userId") {
-                        config["outbounds"][0]["settings"]["servers"][0]["password"] = dataObject[key];
-                    } else if (key == "address") {
-                        config["outbounds"][0]["settings"]["servers"][0]["address"] = dataObject[key];
-                    } else if (key == "port") {
-                        config["outbounds"][0]["settings"]["servers"][0]["port"] = Number(dataObject[key]);
-                    }
+            }
+            for (let key in dataObject) {
+                console.log(dataObject);
+                if (key == "peer") {
+                    config["outbounds"][0]["streamSettings"]["tlsSettings"]["serverName"] = dataObject[key];
+                } else if (key == "userId") {
+                    config["outbounds"][0]["settings"]["servers"][0]["password"] = dataObject[key];
+                } else if (key == "address") {
+                    config["outbounds"][0]["settings"]["servers"][0]["address"] = dataObject[key];
+                } else if (key == "port") {
+                    console.log(Number(dataObject[key]));
+                    config["outbounds"][0]["settings"]["servers"][0]["port"] = Number(dataObject[key]);
                 }
             }
         }
         return {
-            nodename: dataObject["nodename"],
+            nodename: dataObject["nodename"] ? dataObject["nodename"] : dataObject["ps"],
             config,
             uuid,
         };
