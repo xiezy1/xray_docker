@@ -612,7 +612,6 @@ module.exports = class Xray_config {
                 }
             }
         } else if (this.protocol == "trojan") {
-            console.log(dataObject);
             if (dataObject["type"] == "ws") {
                 config["outbounds"][0]["streamSettings"]["wsSettings"] = {
                     path: dataObject["path"],
