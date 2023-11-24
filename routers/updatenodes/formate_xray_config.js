@@ -635,6 +635,7 @@ module.exports = class Xray_config {
                 }
             }
         }
+        console.log(nodename, config, uuid);
         return {
             nodename,
             config,
