@@ -544,7 +544,6 @@ module.exports = class Xray_config {
             return item.split("=")[1];
         });
         return {
-            peer,
             userId,
             address,
             port,
@@ -562,6 +561,7 @@ module.exports = class Xray_config {
             return this.editConfig(this.getTrojanBaseConfig(), this.splitTrojan());
         }
     }
+
     editConfig(config, dataObject) {
         let nodename;
         let uuid = uuidv4();
@@ -607,8 +607,6 @@ module.exports = class Xray_config {
                     config["outbounds"][0]["streamSettings"]["realitySettings"]["shortId"] = dataObject[key];
                 } else if (key == "fp") {
                     config["outbounds"][0]["streamSettings"]["realitySettings"]["fingerprint"] = dataObject[key];
-                } else if (key == "nodename") {
-                    nodename = dataObject[key];
                 }
             }
         } else if (this.protocol == "trojan") {
@@ -629,15 +627,12 @@ module.exports = class Xray_config {
                         config["outbounds"][0]["settings"]["servers"][0]["address"] = dataObject[key];
                     } else if (key == "port") {
                         config["outbounds"][0]["settings"]["servers"][0]["port"] = Number(dataObject[key]);
-                    } else if (key == "nodename") {
-                        nodename = dataObject[key];
                     }
                 }
             }
         }
-        console.log(nodename, config, uuid);
         return {
-            nodename,
+            nodename: dataObject["nodename"],
             config,
             uuid,
         };

@@ -22,8 +22,10 @@ router.get("/", async function (req, res, next) {
         let nodesnamelist = [];
         nodes.forEach((item) => {
             let [protocol, node] = item.split("://");
+            if (protocol == "hysteria2") return;
             let nodeInfo = new Xray_config(protocol, node).formate();
             let { nodename, config, uuid } = nodeInfo;
+            if (!nodename) return;
             if (/过期|时间|流量|套餐|到期|剩余/g.test(nodename.trim())) return;
             nodesnamelist.push({
                 nodename,
