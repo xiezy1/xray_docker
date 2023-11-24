@@ -540,7 +540,7 @@ module.exports = class Xray_config {
         let [address, port] = temp[0].split(":");
         temp = temp[1].split("&");
 
-        let [allowInsecure, peer, sni] = temp.map((item) => {
+        let restArr = temp.map((item) => {
             return item.split("=")[1];
         });
         return {
@@ -549,6 +549,7 @@ module.exports = class Xray_config {
             address,
             port,
             nodename,
+            ...restArr,
         };
     }
 
@@ -611,17 +612,26 @@ module.exports = class Xray_config {
                 }
             }
         } else if (this.protocol == "trojan") {
-            for (let key in dataObject) {
-                if (key == "peer") {
-                    config["outbounds"][0]["streamSettings"]["tlsSettings"]["serverName"] = dataObject[key];
-                } else if (key == "userId") {
-                    config["outbounds"][0]["settings"]["servers"][0]["password"] = dataObject[key];
-                } else if (key == "address") {
-                    config["outbounds"][0]["settings"]["servers"][0]["address"] = dataObject[key];
-                } else if (key == "port") {
-                    config["outbounds"][0]["settings"]["servers"][0]["port"] = Number(dataObject[key]);
-                } else if (key == "nodename") {
-                    nodename = dataObject[key];
+            if (dataObject["type"] == "ws") {
+                config["outbounds"][0]["streamSettings"]["wsSettings"] = {
+                    path: dataObject["path"],
+                    headers: {
+                        Host: dataObject["host"],
+                    },
+                };
+            } else if (dataObject["type"] == "tcp") {
+                for (let key in dataObject) {
+                    if (key == "peer") {
+                        config["outbounds"][0]["streamSettings"]["tlsSettings"]["serverName"] = dataObject[key];
+                    } else if (key == "userId") {
+                        config["outbounds"][0]["settings"]["servers"][0]["password"] = dataObject[key];
+                    } else if (key == "address") {
+                        config["outbounds"][0]["settings"]["servers"][0]["address"] = dataObject[key];
+                    } else if (key == "port") {
+                        config["outbounds"][0]["settings"]["servers"][0]["port"] = Number(dataObject[key]);
+                    } else if (key == "nodename") {
+                        nodename = dataObject[key];
+                    }
                 }
             }
         }
