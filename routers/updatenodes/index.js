@@ -51,17 +51,4 @@ function getnodes(url) {
     );
 }
 
-let sss = [
-    {
-        name: "peiqian",
-        isUpdate: true,
-        url: "https://pqjc.site/api/v1/client/subscribe?token=e5ad721768f5ce6f362cff754c71970e",
-    },
-    {
-        name: "ikuuu",
-        isUpdate: true,
-        url: "https://api.sub-300.club/link/aouVZVLBtQnd4nL3?sub=3&extend=1",
-    },
-];
-
 module.exports = router;
