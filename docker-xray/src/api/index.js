@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let http = axios.create({
-    baseURL: "http://192.168.1.211:8002",
+    baseURL: "http://v2ray.xiezy.top:8002",
     // baseURL: "http://127.0.0.1:8002",
 });
 export function getNodesList() {

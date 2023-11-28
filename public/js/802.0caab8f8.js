@@ -1,2 +1,0 @@
-"use strict";(self["webpackChunkdocker_xray"]=self["webpackChunkdocker_xray"]||[]).push([[802],{1802:function(t,e,n){n.r(e),n.d(e,{default:function(){return o}});var s=function(){var t=this,e=t._self._c;return e("div",{staticClass:"sub"},[e("el-button",{attrs:{type:"primary"},on:{click:t.updateOption}},[t._v("更新订阅")])],1)},r=[],u=n(454),a={data(){return{}},methods:{updateOption(){(0,u.nM)().then((t=>{this.$message.info(t.message)}))}}},i=a,l=n(1001),c=(0,l.Z)(i,s,r,!1,null,null,null),o=c.exports}}]);
-//# sourceMappingURL=802.0caab8f8.js.map
